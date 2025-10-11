@@ -1,110 +1,206 @@
-body{
+:root {
+    --primary: #1B6F93;
+    --primary-light: #2484ad;
+    --text: #E0E0E0;
+    --text-muted: #A0A0A0;
+    --bg-dark: #121212;
+    --bg-darker: #050505;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+}
+
+body {
     margin: 0;
-    background-color: #121212;
- 
-    /* font-family: 'Roboto', sans-serif; */
-}
-nav{
-    background-color:#050505;
-    padding: 20px;
-    
-    
-    /* text-align: center; */
-   
-}
-nav a{
-    color: #E0E0E0;
-    font-family:'orbitron', sans-serif;
-    font-size: 20px;
-    padding: 10px 15px  ;
-    text-decoration: none;
-    margin: 10px;
-    margin-top: 10px;
-    border-radius: 20px;
-    transition: background-color 0.2s ease;
-}
-nav a:hover{
-    background-color: #1B6F93;
-}
-.content{
-     width: 100%;
-    position: relative; 
-    height: 500px;
-    overflow: hidden; 
+    background-color: var(--bg-dark);
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    line-height: 1.6;
 }
 
-.background{
+nav {
+    background-color: var(--bg-darker);
+    padding: var(--space-md);
+    position: fixed;
     width: 100%;
-    object-fit: cover;
-    height: 500px;
-    display: block;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
 }
 
-.intro{
+nav a {
+    color: var(--text);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.7rem 1.5rem;
+    text-decoration: none;
+    border-radius: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+nav a:hover {
+    background-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27,111,147,0.3);
+}
+.content {
+    width: 100%;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    margin-top: 0;
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.6);
+    transform: scale(1.1);
+    animation: zoomBg 20s infinite alternate linear;
+}
+
+@keyframes zoomBg {
+    from { transform: scale(1.1); }
+    to { transform: scale(1.2); }
+}
+
+.intro {
     position: absolute;
-    font-size: xxx-large;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: white;
+    color: var(--text);
     z-index: 1;
-}
-.about{
-    color: white;
-    
-  
-}
-.about h1{
-    text-align: center;
-    font-weight: lighter;
-    
-    margin-bottom: 40px;
-}
-.about .about-me-container{
-    /* only make the direct about-me container a flex row */
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* avoid large gaps between items */
-    gap: 20px;
-    /* prevent wrapping on normal screens so image and content are side-by-side */
-    flex-wrap: nowrap;
-    padding: 0 20px;    
-}
-.about .about-me-content{
-    /* let the text area take remaining space but be able to shrink */
-    flex: 1 1 300px;
-    min-width: 220px;
-}
-.about p{
-    width: auto; /* don't force a percentage width that causes extra space */
-    max-width: 100%;
-    line-height: 1.6;
-    font-size: 22px;
-    font-weight: lighter;
-    font-family: 'Roboto', sans-serif;
-    margin-top: 0;
-}
-.profile-photo{
-    /* keep a fixed square and avoid squeezing — use background-image for the photo */
-    flex: 0 0 200px;
-    width: 200px;
-    height: 200px;
-    background-color: 
-#A0A0A0;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    animation: fadeInUp 1s ease-out;
 }
 
-.profile-photo img{
+.intro h1 {
+    font-size: 4.5rem;
+    font-family: 'Orbitron', sans-serif;
+    margin: 0;
+    font-weight: 600;
+    background: linear-gradient(120deg, var(--text), var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.about {
+    padding: var(--space-lg) var(--space-md);
+    background: linear-gradient(to bottom, var(--bg-dark), var(--bg-darker));
+}
+
+.about h1 {
+    text-align: center;
+    font-weight: 500;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: var(--space-lg);
+    font-size: 2.5rem;
+    background: linear-gradient(120deg, var(--text), var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInUp 1s ease-out;
+}
+.about .about-me-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    padding: var(--space-md);
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+}
+
+.about .about-me-content {
+    flex: 1 1 600px;
+    max-width: 600px;
+}
+
+.about h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    margin-bottom: var(--space-md);
+    color: var(--primary-light);
+}
+
+.about p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.profile-photo {
+    flex: 0 0 300px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(27,111,147,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-photo:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(27,111,147,0.4);
+}
+
+.profile-photo img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* keeps aspect ratio and fills the container */
+    object-fit: cover;
     display: block;
-    border-radius: 50%;
-    transform: translate(10px, 0);
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.profile-photo:hover img {
+    transform: scale(1);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Small screens: stack the photo above the text */
+@media (max-width: 768px) {
+    .about .about-me-container {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-md);
+    }
+    
+    .about .about-me-content {
+        max-width: 100%;
+    }
+    
+    .profile-photo {
+        width: 250px;
+        height: 250px;
+        flex: 0 0 250px;
+    }
+    
+    .intro h1 {
+        font-size: 3rem;
+    }
 }
 
 /* Small screens: stack the photo above the text */
@@ -115,4 +211,9 @@ nav a:hover{
         text-align: center;
     }
     .about .about-me-content{ min-width: auto; }
+}
+.github-link, .linkedin-link{
+    height: 50px;
+    width: 50px;
+    background: red;
 }
