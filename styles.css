@@ -212,8 +212,39 @@ nav a:hover {
     }
     .about .about-me-content{ min-width: auto; }
 }
-.github-link, .linkedin-link{
-    height: 50px;
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: var(--space-lg);
+    animation: fadeInUp 1s ease-out 0.6s backwards;
+}
+
+.social-icon {
     width: 50px;
-    background: red;
+    height: 50px;
+    background: var(--bg-darker);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(27,111,147,0.4);
+    background: var(--primary);
+}
+
+.social-icon svg {
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover svg {
+    transform: scale(1.1);
 }
