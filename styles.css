@@ -9,6 +9,11 @@
     --space-md: 2rem;
     --space-lg: 4rem;
 }
+html {
+    scroll-behavior: smooth;
+    /* Optimize scroll padding for better anchor points */
+    scroll-padding-top: 90px;
+}
 
 body {
     margin: 0;
@@ -16,11 +21,66 @@ body {
     font-family: 'Inter', sans-serif;
     color: var(--text);
     line-height: 1.6;
+    /* Adjusted padding for optimized navbar height */
+    padding-top: 70px;
+}
+
+/* Scroll reveal animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-in-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Scroll to top button */
+.scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 45px;
+    height: 45px;
+    background: var(--primary);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.scroll-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-top:hover {
+    background: var(--primary-light);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(27,111,147,0.4);
+}
+
+.scroll-top svg {
+    transition: transform 0.3s ease;
+}
+
+.scroll-top:hover svg {
+    transform: translateY(-2px);
 }
 
 nav {
     background-color: var(--bg-darker);
-    padding: var(--space-md);
+    padding: 1rem var(--space-md);
     position: fixed;
     width: 100%;
     top: 0;
@@ -28,6 +88,18 @@ nav {
     box-shadow: 0 2px 20px rgba(0,0,0,0.3);
     display: flex;
     justify-content: center;
+    transition: padding 0.3s ease;
+}
+
+/* Shrink navbar on scroll */
+nav.scrolled {
+    padding: 0.7rem var(--space-md);
+    background-color: rgba(5,5,5,0.95);
+    backdrop-filter: blur(10px);
+}
+
+.nav-links {
+    display: flex;
     gap: var(--space-sm);
 }
 
@@ -49,12 +121,79 @@ nav a:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(27,111,147,0.3);
 }
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 24px;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 101;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text);
+    margin: 6px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--bg-darker);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-md);
+        transition: 0.3s ease-in-out;
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    /* Hamburger animation */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    nav a {
+        font-size: 1.3rem;
+        padding: 1rem 2rem;
+    }
+}
 .content {
     width: 100%;
     position: relative;
     height: 100vh;
     overflow: hidden;
-    margin-top: 0;
+    margin-top: -80px; /* Offset the body padding */
 }
 
 .background {
@@ -186,31 +325,34 @@ nav a:hover {
         flex-direction: column;
         text-align: center;
         gap: var(--space-md);
+        padding: var(--space-md) var(--space-sm);
     }
     
     .about .about-me-content {
         max-width: 100%;
+        order: 2; /* Makes content appear after the photo */
     }
     
     .profile-photo {
         width: 250px;
         height: 250px;
         flex: 0 0 250px;
+        order: 1; /* Makes photo appear first */
+        margin: 0 auto;
     }
     
     .intro h1 {
         font-size: 3rem;
     }
-}
 
-/* Small screens: stack the photo above the text */
-@media (max-width: 700px) {
-    .about .about-me-container{
-        flex-direction: row;
-        align-items: center;
-        text-align: center;
+    .about h2 {
+        font-size: 1.8rem;
     }
-    .about .about-me-content{ min-width: auto; }
+
+    .about p {
+        font-size: 1.1rem;
+        padding: 0 var(--space-sm);
+    }
 }
 .social-links {
     display: flex;

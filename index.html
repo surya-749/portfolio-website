@@ -13,19 +13,26 @@
 
 <body>
     <nav>
-        <a href="index.html">Home</a> 
-        <a href="contact.html">Contact</a> 
-        <a href="portfolio.html">Portfolio</a> 
-        <a href="about.html">About</a>
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links">
+            <a href="portflio.html#content">Home</a> 
+            <a href="contact.html">Contact</a> 
+            <a href="portfolio.html">Portfolio</a> 
+            <a href="#about">About</a>
+        </div>
     </nav>
     
-    <div class="content">
+    <div class="content" id="content">
         <img src="background-pic.jpg" class="background">
         <div class="intro">
             <h1>Hi, I'm Surya</h1>
         </div>
     </div>
-    <div class="about">
+    <div class="about" id="about">
         <h1>About Me</h1>
 
         <div class="about-me-container">
@@ -47,6 +54,71 @@
             </a>
         </div>
     </div>
+
+    <button class="scroll-top" aria-label="Scroll to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+    </button>
     
+    <script>
+        // Hamburger menu
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const nav = document.querySelector('nav');
+        const scrollTopBtn = document.querySelector('.scroll-top');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll animations
+        const revealElements = document.querySelectorAll('.about-me-container, .about h1, .social-links');
+        
+        function checkScroll() {
+            // Shrink navbar on scroll
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+                scrollTopBtn.classList.add('visible');
+            } else {
+                nav.classList.remove('scrolled');
+                scrollTopBtn.classList.remove('visible');
+            }
+
+            // Reveal elements on scroll
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight * 0.85) {
+                    element.classList.add('reveal', 'active');
+                }
+            });
+        }
+
+        // Scroll to top
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Listen for scroll
+        window.addEventListener('scroll', checkScroll);
+        
+        // Initial check
+        checkScroll();
+    </script>
 </body>
 </html>
